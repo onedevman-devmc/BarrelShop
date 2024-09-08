@@ -2,9 +2,7 @@ name: release-build
 run-name: ''
 
 on:
-  push:
-    tags:
-      - '*'
+  push: {}
 
 jobs:
   BUILD:
