@@ -344,7 +344,6 @@ public class BarrelShopManager implements Listener, EventListener {
 
     private void internalUpdateShopTradeAnimationIcon(BarrelShop shop) {
         Location shopLocation = shop.getLocation();
-        World shopWorld = Objects.requireNonNull(shop.getLocation().getWorld());
 
         List<AbstractShopTrade> trades = shop.trades();
         int tradeCount = trades.size();
@@ -393,6 +392,8 @@ public class BarrelShopManager implements Listener, EventListener {
             animationIcon.setCustomName(displayName + " §8(§7✕§5" + animationIconItemStack.getAmount() + "§8)§r");
             animationIcon.setCustomNameVisible(true);
         }
+
+        animationIcon.update();
 
         this.shopTradesAnimationLoopIndexMap.remove(shopLocation);
         this.shopTradesAnimationLoopIndexMap.put(shopLocation, tradeIndex + 1);
