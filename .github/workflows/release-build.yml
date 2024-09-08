@@ -1,7 +1,7 @@
 name: release-build
 run-name: ''
 
-on:
+on: [push]
 
 jobs:
   BUILD:
