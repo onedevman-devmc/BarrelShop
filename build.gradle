@@ -69,7 +69,7 @@ dependencies {
 //
 
 group = 'mc.onedevman.plugins'
-version = '1.0-beta1'
+version = '1.0'
 description = ''
 java.sourceCompatibility = JavaVersion.VERSION_17
 

@@ -229,16 +229,19 @@ public class BarrelShop implements InterfaceEventListener {
 
     public ShopTradeInterface getTradeInterface() { return this.tradeInterface; }
 
-    public List<BarrelShopManager> managers() { return this.managers; }
-
     //
 
     public List<AbstractShopTrade> trades() { return this.trades; }
 
     //
 
+    public void registerManager(BarrelShopManager manager) { if(!this.managers.contains(manager)) this.managers.add(manager); }
+
+    public void unregisterManager(BarrelShopManager manager) { this.managers.remove(manager); }
+
+
     public void requestUpdateToManagers() {
-        for(BarrelShopManager manager : this.managers())
+        for(BarrelShopManager manager : this.managers)
             manager.updateShopTradeAnimationIcon(this);
     }
 

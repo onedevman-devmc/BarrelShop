@@ -253,14 +253,14 @@ public class BarrelShopManager implements Listener, EventListener {
     @mc.compendium.events.EventHandler
     public void onShopLoaded(ShopLoadedEvent event) {
         BarrelShop shop = event.getShop();
-        shop.managers().add(this);
+        shop.registerManager(this);
     }
 
     @mc.compendium.events.EventHandler
     public void onShopUnloaded(ShopUnloadedEvent event) {
         BarrelShop shop = event.getShop();
         this.clearShopTradeAnimationIcon(shop);
-        shop.managers().remove(this);
+        shop.unregisterManager(this);
     }
 
     //
@@ -300,7 +300,8 @@ public class BarrelShopManager implements Listener, EventListener {
         if(!BarrelShop.isValidSign(sign)) return null;
 
         BarrelShop shop = BarrelShop.hasAdminShopIdentifier(sign) ? new BarrelAdminShop(sign) : new BarrelShop(sign, owner);
-        this.updateShopTradeAnimationIcon(shop);
+        shop.registerManager(this);
+        shop.requestUpdateToManagers();
 
         return shop;
     }
