@@ -1,0 +1,94 @@
+name: BarrelShop
+version: 0.0.1-beta1
+main: mc.barrelshop.PluginMain
+api-version: 1.20
+softdepend:
+  - Compendium
+
+#
+
+commands:
+  survivaltweaks:
+    description: ''
+    usage: 'please use /survivaltweaks to show help'
+
+  #
+
+  bury:
+    description: 'Allows to bury yourself or another player.'
+    usage: '/bury | /bury <player>'
+
+#
+
+permissions:
+  mc.barrelshop.*:
+    description: ''
+    children:
+      mc.barrelshop.shops.*: true
+
+  #
+
+  mc.barrelshop.shops.*:
+    description: ''
+    children:
+      mc.barrelshop.shops.admin.*: true
+      mc.barrelshop.shops.self: true
+      mc.barrelshop.shops.others: true
+
+  #
+
+  mc.barrelshop.shops.admin.*:
+    description: ''
+    children:
+      mc.barrelshop.shops.admin.create: true
+      mc.barrelshop.shops.admin.delete: true
+      mc.barrelshop.shops.admin.manage: true
+
+  mc.barrelshop.shops.admin.create:
+    description: 'Allows you to create admin shops.'
+    default: false
+
+  mc.barrelshop.shops.admin.delete:
+    description: 'Allows you to delete admin shops.'
+    default: false
+
+  mc.barrelshop.shops.admin.manage:
+    description: 'Allows you to manage admin shops.'
+    default: false
+
+  #
+
+  mc.barrelshop.shops.self.*:
+    description: ''
+    children:
+      mc.barrelshop.shops.self.create: true
+      mc.barrelshop.shops.self.delete: true
+      mc.barrelshop.shops.self.manage: true
+
+  mc.barrelshop.shops.self.create:
+    description: 'Allows you to create your own shops.'
+    default: true
+
+  mc.barrelshop.shops.self.delete:
+    description: 'Allows you to delete your own shops.'
+    default: true
+
+  mc.barrelshop.shops.self.manage:
+    description: 'Allows you to manage your own shops.'
+    default: true
+
+  #
+
+  mc.barrelshop.shops.others.*:
+    description: ''
+    children:
+      mc.barrelshop.shops.others.delete: true
+      mc.barrelshop.shops.others.manage: true
+
+  mc.barrelshop.shops.others.delete:
+    description: 'Allows you to delete other players shops.'
+    default: false
+
+  mc.barrelshop.shops.others.manage:
+    description: 'Allows you to manage other players shops.'
+    default: false
