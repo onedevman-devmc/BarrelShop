@@ -103,6 +103,38 @@ spigotRemap {
 
 //
 
+def releaseJar = layout.projectDirectory.file("dest/${project.name}.jar").asFile
+
+def cleanReleaseJar = tasks.register('cleanReleaseJar') {
+    if(releaseJar.exists()) releaseJar.delete()
+}
+
+def createReleaseJar = tasks.register('createReleaseJar') {
+    doLast {
+        def srcfile = shadowJar.archiveFile
+
+        copy {
+            from srcfile
+            into releaseJar.parentFile
+            rename srcfile.get().asFile.name, releaseJar.name
+        }
+    }
+}
+
+//
+
+tasks.clean {
+    dependsOn(cleanReleaseJar)
+}
+
+tasks.build {
+    if(!project.ext.isDevmode) {
+        dependsOn(createReleaseJar)
+    }
+}
+
+//
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }

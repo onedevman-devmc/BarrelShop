@@ -2,8 +2,8 @@ package mc.barrelshop.shop;
 
 import mc.barrelshop.shop.events.ShopLoadedEvent;
 import mc.barrelshop.shop.events.ShopUnloadedEvent;
-import mc.barrelshop.utils.ItemNames;
 import mc.compendium.events.EventListener;
+import mc.compendium.utils.bukkit.ItemNames;
 import org.bukkit.*;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
