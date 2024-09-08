@@ -7,16 +7,7 @@ softdepend:
 
 #
 
-commands:
-  survivaltweaks:
-    description: ''
-    usage: 'please use /survivaltweaks to show help'
-
-  #
-
-  bury:
-    description: 'Allows to bury yourself or another player.'
-    usage: '/bury | /bury <player>'
+commands: {}
 
 #
 
@@ -24,71 +15,71 @@ permissions:
   mc.barrelshop.*:
     description: ''
     children:
-      mc.barrelshop.shops.*: true
+      mc.barrelshop.shop.*: true
 
   #
 
-  mc.barrelshop.shops.*:
+  mc.barrelshop.shop.*:
     description: ''
     children:
-      mc.barrelshop.shops.admin.*: true
-      mc.barrelshop.shops.self: true
-      mc.barrelshop.shops.others: true
+      mc.barrelshop.shop.admin.*: true
+      mc.barrelshop.shop.self.*: true
+      mc.barrelshop.shop.others.*: true
 
   #
 
-  mc.barrelshop.shops.admin.*:
+  mc.barrelshop.shop.admin.*:
     description: ''
     children:
-      mc.barrelshop.shops.admin.create: true
-      mc.barrelshop.shops.admin.delete: true
-      mc.barrelshop.shops.admin.manage: true
+      mc.barrelshop.shop.admin.create: true
+      mc.barrelshop.shop.admin.delete: true
+      mc.barrelshop.shop.admin.manage: true
 
-  mc.barrelshop.shops.admin.create:
-    description: 'Allows you to create admin shops.'
+  mc.barrelshop.shop.admin.create:
+    description: 'Allows to create admin shops.'
     default: false
 
-  mc.barrelshop.shops.admin.delete:
-    description: 'Allows you to delete admin shops.'
+  mc.barrelshop.shop.admin.delete:
+    description: 'Allows to delete admin shops.'
     default: false
 
-  mc.barrelshop.shops.admin.manage:
-    description: 'Allows you to manage admin shops.'
+  mc.barrelshop.shop.admin.manage:
+    description: 'Allows to manage admin shops.'
     default: false
 
   #
 
-  mc.barrelshop.shops.self.*:
+  mc.barrelshop.shop.self.*:
     description: ''
     children:
-      mc.barrelshop.shops.self.create: true
-      mc.barrelshop.shops.self.delete: true
-      mc.barrelshop.shops.self.manage: true
+      mc.barrelshop.shop.self.create: true
+      mc.barrelshop.shop.self.delete: true
+      mc.barrelshop.shop.self.manage: true
 
-  mc.barrelshop.shops.self.create:
-    description: 'Allows you to create your own shops.'
+  mc.barrelshop.shop.self.create:
+    description: 'Allows to create its own shops.'
     default: true
 
-  mc.barrelshop.shops.self.delete:
-    description: 'Allows you to delete your own shops.'
+  mc.barrelshop.shop.self.delete:
+    description: 'Allows to delete its own shops.'
     default: true
 
-  mc.barrelshop.shops.self.manage:
-    description: 'Allows you to manage your own shops.'
+  mc.barrelshop.shop.self.manage:
+    description: 'Allows to manage its own shops.'
     default: true
 
   #
 
-  mc.barrelshop.shops.others.*:
+  mc.barrelshop.shop.others.*:
     description: ''
     children:
-      mc.barrelshop.shops.others.delete: true
-      mc.barrelshop.shops.others.manage: true
+      mc.barrelshop.shop.others.delete: true
+      mc.barrelshop.shop.others.manage: true
 
-  mc.barrelshop.shops.others.delete:
-    description: 'Allows you to delete other players shops.'
+  mc.barrelshop.shop.others.delete:
+    description: 'Allows to delete other players shops.'
     default: false
 
-  mc.barrelshop.shops.others.manage:
-    description: 'Allows you to manage other players shops.'
+  mc.barrelshop.shop.others.manage:
+    description: 'Allows to manage other players shops.'
     default: false

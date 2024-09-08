@@ -1,6 +1,6 @@
 package mc.barrelshop;
 
-import mc.barrelshop.shops.BarrelShopManager;
+import mc.barrelshop.shop.BarrelShopManager;
 import mc.compendium.chestinterface.ChestInterfaceApi;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
