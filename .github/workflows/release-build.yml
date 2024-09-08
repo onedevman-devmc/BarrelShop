@@ -1,7 +1,10 @@
 name: release-build
 run-name: ''
 
-on: [push]
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   BUILD:
@@ -27,4 +30,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            build/libs/
+            dest/BarrelShop.jar
