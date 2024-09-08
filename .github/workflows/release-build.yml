@@ -8,8 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: 'echo ${{ github.ref }}'
-
       - name: checkout
         uses: actions/checkout@v4
 
