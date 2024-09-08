@@ -1,10 +1,5 @@
 package mc.barrelshop.shop.ui.management.icon;
 
-import mc.compendium.chestinterface.components.AbstractChestIcon;
-import mc.compendium.chestinterface.components.configurations.ChestIconConfig;
-import mc.compendium.chestinterface.events.ChestIconClickEvent;
-import mc.compendium.chestinterface.events.InterfaceEventListener;
-import mc.compendium.events.EventHandler;
 import mc.barrelshop.shop.AbstractShopTrade;
 import mc.barrelshop.shop.AdminShopTrade;
 import mc.barrelshop.shop.BarrelShop;
@@ -13,6 +8,11 @@ import mc.barrelshop.shop.ui.InventoryHistory;
 import mc.barrelshop.shop.ui.management.AbstractShopTradeManagementMenu;
 import mc.barrelshop.shop.ui.management.AdminShopTradeManagementMenu;
 import mc.barrelshop.shop.ui.management.ShopTradeManagementMenu;
+import mc.compendium.chestinterface.components.AbstractChestIcon;
+import mc.compendium.chestinterface.components.configurations.ChestIconConfig;
+import mc.compendium.chestinterface.events.ChestIconClickEvent;
+import mc.compendium.chestinterface.events.InterfaceEventListener;
+import mc.compendium.events.EventHandler;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

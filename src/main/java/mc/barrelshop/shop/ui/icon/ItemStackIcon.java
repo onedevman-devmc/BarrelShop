@@ -1,7 +1,7 @@
 package mc.barrelshop.shop.ui.icon;
 
-import mc.compendium.chestinterface.components.AbstractChestIcon;
 import mc.barrelshop.shop.ui.icon.config.EmptyIconConfig;
+import mc.compendium.chestinterface.components.AbstractChestIcon;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

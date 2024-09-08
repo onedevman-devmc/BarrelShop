@@ -1,12 +1,12 @@
 package mc.barrelshop.shop.ui.management.input;
 
+import mc.barrelshop.shop.BarrelShop;
 import mc.compendium.chestinterface.ChestInterfaceApi;
 import mc.compendium.chestinterface.components.AnvilInput;
 import mc.compendium.chestinterface.components.configurations.AnvilInputConfig;
 import mc.compendium.chestinterface.events.AnvilInputSubmitEvent;
 import mc.compendium.chestinterface.events.AnvilInputWritingEvent;
 import mc.compendium.events.EventHandler;
-import mc.barrelshop.shop.BarrelShop;
 
 import java.util.List;
 

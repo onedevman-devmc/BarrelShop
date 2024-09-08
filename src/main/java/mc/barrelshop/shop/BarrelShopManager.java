@@ -1,16 +1,15 @@
 package mc.barrelshop.shop;
 
-import mc.compendium.events.EventListener;
 import mc.barrelshop.shop.events.ShopLoadedEvent;
 import mc.barrelshop.shop.events.ShopUnloadedEvent;
 import mc.barrelshop.utils.ItemNames;
+import mc.compendium.events.EventListener;
 import org.bukkit.*;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.SignSide;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,6 +20,7 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -250,6 +250,13 @@ public class BarrelShopManager implements Listener, EventListener {
 
     //
 
+    @EventHandler
+    public void onShopTradeAnimationIconPickedUpByContainer(InventoryPickupItemEvent event) {
+        event.setCancelled(shopTradeAnimationIconMap.containsValue(event.getItem()));
+    }
+
+    //
+
     @mc.compendium.events.EventHandler
     public void onShopLoaded(ShopLoadedEvent event) {
         BarrelShop shop = event.getShop();
@@ -270,7 +277,7 @@ public class BarrelShopManager implements Listener, EventListener {
 
     private BukkitTask shopTradesAnimationLoopTask = null;
     private final Map<Location, Integer> shopTradesAnimationLoopIndexMap = Collections.synchronizedMap(new HashMap<>());
-    private final Map<Location, Item> shopTradeAnimationIconMap = Collections.synchronizedMap(new HashMap<>());
+    private final Map<Location, ItemIcon> shopTradeAnimationIconMap = Collections.synchronizedMap(new HashMap<>());
 
     //
 
@@ -357,24 +364,19 @@ public class BarrelShopManager implements Listener, EventListener {
             tradeIndex = (tradeIndex+i-1) % tradeCount;
         }
 
-        Item animationIcon = this.shopTradeAnimationIconMap.get(shopLocation);
+        ItemIcon animationIcon = this.shopTradeAnimationIconMap.get(shopLocation);
+        Location animationIconLocation = shopLocation.clone().add(0.5, 1, 0.5);
 
-        if(animationIcon != null && !animationIcon.isInWorld()) {
+        if(animationIcon != null && !animationIcon.item().isInWorld()) {
             animationIcon.remove();
             animationIcon = null;
         }
 
         if (animationIcon == null) {
             this.shopTradeAnimationIconMap.put(
-                    shopLocation,
-                    animationIcon = shopWorld.dropItem(shopLocation.clone().add(0.5, 1, 0.5), new ItemStack(Material.STONE))
+                shopLocation,
+                animationIcon = new ItemIcon(animationIconLocation)
             );
-
-            animationIcon.setVelocity(animationIcon.getVelocity().zero());
-            animationIcon.setGravity(false);
-
-            animationIcon.setUnlimitedLifetime(true);
-            animationIcon.setPickupDelay(Integer.MAX_VALUE);
         }
 
         if(tradeResult == null) {
@@ -402,13 +404,13 @@ public class BarrelShopManager implements Listener, EventListener {
 
     private void clearShopTradeAnimationIcon(BarrelShop shop) {
         Location shopLocation = shop.getLocation();
-        Item animationIcon = this.shopTradeAnimationIconMap.remove(shopLocation);
+        ItemIcon animationIcon = this.shopTradeAnimationIconMap.remove(shopLocation);
         if(animationIcon != null) animationIcon.remove();
         this.shopTradeAnimationIconMap.remove(shopLocation);
     }
 
     private void clearAllShopTradeAnimationIcons() {
-        for(Item animationIcon : this.shopTradeAnimationIconMap.values()) animationIcon.remove();
+        for(ItemIcon animationIcon : this.shopTradeAnimationIconMap.values()) animationIcon.remove();
         this.shopTradeAnimationIconMap.clear();
         this.shopTradesAnimationLoopIndexMap.clear();
     }

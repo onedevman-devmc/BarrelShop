@@ -1,10 +1,10 @@
 package mc.barrelshop.shop.ui.management.icon;
 
+import mc.barrelshop.shop.ContainerItemList;
+import mc.barrelshop.shop.ui.icon.SlotIcon;
 import mc.compendium.chestinterface.events.ChestIconClickEvent;
 import mc.compendium.events.EventHandler;
 import mc.compendium.events.EventHandlerPriority;
-import mc.barrelshop.shop.ContainerItemList;
-import mc.barrelshop.shop.ui.icon.SlotIcon;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

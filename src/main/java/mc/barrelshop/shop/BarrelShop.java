@@ -1,9 +1,9 @@
 package mc.barrelshop.shop;
 
-import mc.compendium.chestinterface.events.InterfaceEventListener;
 import mc.barrelshop.PluginMain;
 import mc.barrelshop.shop.ui.management.ShopManagementInterface;
 import mc.barrelshop.shop.ui.trading.ShopTradeInterface;
+import mc.compendium.chestinterface.events.InterfaceEventListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

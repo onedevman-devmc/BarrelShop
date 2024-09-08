@@ -11,7 +11,7 @@ import java.util.Objects;
 public class ShopTrade extends InventoriedTrade {
 
     public static ShopTrade deserialize(ConfigurationSection section) {
-        InventoriedTrade inventoriedTrade = InventoriedTrade.deserialize(section);
+        InventoriedTrade inventoriedTrade = InventoriedTrade.deserialize(section, false);
         ShopTrade trade = new ShopTrade();
 
         //

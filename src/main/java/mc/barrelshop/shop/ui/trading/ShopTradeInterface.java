@@ -1,12 +1,12 @@
 package mc.barrelshop.shop.ui.trading;
 
+import mc.barrelshop.shop.AbstractShopTrade;
+import mc.barrelshop.shop.BarrelShop;
 import mc.compendium.chestinterface.components.TradeInterface;
 import mc.compendium.chestinterface.components.configurations.TradeInterfaceConfig;
 import mc.compendium.chestinterface.events.InterfaceEventListener;
 import mc.compendium.chestinterface.events.TradeInterfaceCloseEvent;
 import mc.compendium.events.EventHandler;
-import mc.barrelshop.shop.AbstractShopTrade;
-import mc.barrelshop.shop.BarrelShop;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Merchant;

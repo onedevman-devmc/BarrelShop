@@ -1,11 +1,11 @@
 package mc.barrelshop.shop.ui.management.icon;
 
+import mc.barrelshop.shop.BarrelShop;
+import mc.barrelshop.shop.ui.management.input.ShopNameInput;
 import mc.compendium.chestinterface.components.ChestIcon;
 import mc.compendium.chestinterface.components.configurations.ChestIconConfig;
 import mc.compendium.chestinterface.events.ChestIconClickEvent;
 import mc.compendium.events.EventHandler;
-import mc.barrelshop.shop.BarrelShop;
-import mc.barrelshop.shop.ui.management.input.ShopNameInput;
 import org.bukkit.Material;
 
 import java.util.List;

@@ -16,6 +16,10 @@ import java.util.function.Function;
 public class InventoriedTrade extends AbstractShopTrade {
 
     public static InventoriedTrade deserialize(ConfigurationSection section) {
+        return deserialize(section, true);
+    }
+
+    protected static InventoriedTrade deserialize(ConfigurationSection section, boolean includeInventories) {
         InventoriedTrade trade = new InventoriedTrade();
 
         //
@@ -24,27 +28,29 @@ public class InventoriedTrade extends AbstractShopTrade {
         trade.setComplementaryPrice(ItemStacks.deserialize(section.getString("complementary-price")));
         trade.setResult(ItemStacks.deserialize(section.getString("result")));
 
-        ConfigurationSection inventoriesSection = Objects.requireNonNull(section.getConfigurationSection("inventories"));
+        if(includeInventories) {
+            ConfigurationSection inventoriesSection = Objects.requireNonNull(section.getConfigurationSection("inventories"));
 
-        ConfigurationSection stocksInventoryListSection = Objects.requireNonNull(inventoriesSection.getConfigurationSection("stocks"));
-        ConfigurationSection earningsInventoryListSection = Objects.requireNonNull(inventoriesSection.getConfigurationSection("earnings"));
+            ConfigurationSection stocksInventoryListSection = Objects.requireNonNull(inventoriesSection.getConfigurationSection("stocks"));
+            ConfigurationSection earningsInventoryListSection = Objects.requireNonNull(inventoriesSection.getConfigurationSection("earnings"));
 
-        int stocksInventoryCount = stocksInventoryListSection.getKeys(false).size();
-        List<Inventory> stocksInventoryList = new ArrayList<>(stocksInventoryCount);
-        trade.setStocksInventoryList(stocksInventoryList);
+            int stocksInventoryCount = stocksInventoryListSection.getKeys(false).size();
+            List<Inventory> stocksInventoryList = new ArrayList<>(stocksInventoryCount);
+            trade.setStocksInventoryList(stocksInventoryList);
 
-        for(int index = 0; index < stocksInventoryCount; index++) {
-            ItemStack[] content = Inventories.deserializeContent(stocksInventoryListSection.getString("" + index));
-            stocksInventoryList.add(Inventories.copyContentInto(content, Bukkit.createInventory(null, content.length)));
-        }
+            for(int index = 0; index < stocksInventoryCount; index++) {
+                ItemStack[] content = Inventories.deserializeContent(stocksInventoryListSection.getString("" + index));
+                stocksInventoryList.add(Inventories.copyContentInto(content, Bukkit.createInventory(null, content.length)));
+            }
 
-        int earningsInventoryCount = earningsInventoryListSection.getKeys(false).size();
-        List<Inventory> earningsInventoryList = new ArrayList<>(earningsInventoryCount);
-        trade.setEarningsInventoryList(earningsInventoryList);
+            int earningsInventoryCount = earningsInventoryListSection.getKeys(false).size();
+            List<Inventory> earningsInventoryList = new ArrayList<>(earningsInventoryCount);
+            trade.setEarningsInventoryList(earningsInventoryList);
 
-        for(int index = 0; index < earningsInventoryCount; index++) {
-            ItemStack[] content = Inventories.deserializeContent(earningsInventoryListSection.getString("" + index));
-            earningsInventoryList.add(Inventories.copyContentInto(content, Bukkit.createInventory(null, content.length)));
+            for(int index = 0; index < earningsInventoryCount; index++) {
+                ItemStack[] content = Inventories.deserializeContent(earningsInventoryListSection.getString("" + index));
+                earningsInventoryList.add(Inventories.copyContentInto(content, Bukkit.createInventory(null, content.length)));
+            }
         }
 
         return trade;
@@ -130,8 +136,44 @@ public class InventoriedTrade extends AbstractShopTrade {
         return (
             tradeComplementaryPrice == null
             ? storedTradePrices
-            : Math.min(storedTradePrices, storedTradeComplementaryPriceAmount / tradeComplementaryPrice.getAmount())
+            : Math.min(
+                storedTradePrices,
+                storedTradeComplementaryPriceAmount / tradeComplementaryPrice.getAmount()
+            )
         );
+    }
+
+    @Override
+    public synchronized int getAvailableEarningsSpace() {
+        ItemStack tradePrice = this.getPrice();
+        if(tradePrice == null) return 0;
+
+        ItemStack tradeComplementaryPrice = this.getComplementaryPrice();
+
+        int tradePriceAvailableAmount = 0;
+        int tradeComplementaryPriceAvailableAmount = 0;
+
+        for(Inventory earningsInventory : this.earningsInventoryList) {
+            if(earningsInventory != null) {
+                for(ItemStack itemStack : earningsInventory.getContents()) {
+                    if(itemStack == null) {
+                        tradePriceAvailableAmount += tradePrice.getMaxStackSize();
+                        tradeComplementaryPriceAvailableAmount += tradeComplementaryPrice.getMaxStackSize();
+                    }
+                    else if(itemStack.isSimilar(tradePrice)) {
+                        tradePriceAvailableAmount += tradePrice.getMaxStackSize() - itemStack.getAmount();
+                    }
+                    else if(itemStack.isSimilar(tradeComplementaryPrice)) {
+                        tradeComplementaryPriceAvailableAmount += tradeComplementaryPrice.getMaxStackSize() - itemStack.getAmount();
+                    }
+                }
+            }
+        }
+
+        int tradePriceAvailableSpace = tradePriceAvailableAmount / tradePrice.getAmount();
+        int tradeComplementaryPriceAvailableSpace = tradeComplementaryPriceAvailableAmount / tradeComplementaryPrice.getAmount();
+
+        return Math.min(tradePriceAvailableSpace, tradeComplementaryPriceAvailableSpace);
     }
 
     @Override
@@ -147,7 +189,7 @@ public class InventoriedTrade extends AbstractShopTrade {
         for(Inventory earningsInventory : this.earningsInventoryList) {
             if(earningsInventory != null) {
                 for(ItemStack itemStack : earningsInventory.getContents()) {
-                    if(itemStack == null || itemStack.isSimilar(tradePrice)) {
+                    if(itemStack == null || itemStack.isSimilar(tradePrice) || itemStack.isSimilar(tradeComplementaryPrice)) {
                         candidateSlotCount += 1;
                     }
                 }
