@@ -130,7 +130,7 @@ def publishRelease = tasks.register("publish-release") {
         print("git tag -d ${tag}".execute().err.text)
         print("git tag ${tag}".execute().err.text)
 
-        print("git push origin :ref/tags/${tag}".execute().err.text)
+        print("git push origin :refs/tags/${tag}".execute().err.text)
 
         print("git push -u origin main ${tag}".execute().err.text)
     }
