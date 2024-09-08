@@ -1,12 +1,13 @@
 name: release-build
 run-name: ''
-on: [push, workflow_dispatch]
+
+on:
+
 jobs:
   BUILD:
     runs-on: ubuntu-latest
 
-    env:
-      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+    if: startsWith(github.ref, 'refs/tags/')
 
     steps:
       - name: checkout
@@ -26,7 +27,6 @@ jobs:
 
       - name: publish release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
             build/libs/
