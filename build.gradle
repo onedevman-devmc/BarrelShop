@@ -123,6 +123,21 @@ def createReleaseJar = tasks.register('createReleaseJar') {
 
 //
 
+def publishRelease = tasks.register("publish-release") {
+    def tag = "v${project.version}"
+
+    doLast {
+        print("git tag -d ${tag}".execute().err.text)
+        print("git tag ${tag}".execute().err.text)
+
+        print("git push origin :ref/tags/${tag}".execute().err.text)
+
+        print("git push -u origin main ${tag}".execute().err.text)
+    }
+}
+
+//
+
 tasks.clean {
     dependsOn(cleanReleaseJar)
 }

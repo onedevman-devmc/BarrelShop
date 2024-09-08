@@ -35,5 +35,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASES_TOKEN }}
         with:
+          draft: true
           files: |
             dest/BarrelShop.jar
